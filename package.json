@@ -1,13 +1,26 @@
 {
   "name": "chatgpt-api-pool",
+  "type": "module",
   "version": "0.1.0",
   "description": "Build your own ChatGPT with a request pool.",
-  "type": "module",
+  "author": "alexzhang1030",
+  "license": "MIT",
+  "keywords": [
+    "chatgpt",
+    "api",
+    "pool"
+  ],
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
   "scripts": {
     "test": "vitest run",
     "lint": "eslint .",
@@ -15,23 +28,12 @@
     "release": "bumpp --commit \"chore: release v%s\" --push --tag && pnpm publish",
     "build": "unbuild"
   },
-  "keywords": [
-    "chatgpt",
-    "api",
-    "pool"
-  ],
-  "author": "alexzhang1030",
-  "license": "MIT",
-  "simple-git-hooks": {
-    "pre-commit": "pnpm exec lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,ts,json,md,yaml,yml}": [
-      "eslint --fix"
-    ]
-  },
-  "eslintConfig": {
-    "extends": "@antfu/eslint-config-ts"
+  "dependencies": {
+    "chatgpt": "^4.7.1",
+    "consola": "^2.15.3",
+    "keyv": "^4.5.2",
+    "nanoid": "^4.0.1",
+    "p-queue": "^7.3.4"
   },
   "devDependencies": {
     "@antfu/eslint-config-ts": "^0.35.2",
@@ -43,11 +45,15 @@
     "unbuild": "^1.1.2",
     "vitest": "^0.28.5"
   },
-  "dependencies": {
-    "chatgpt": "^4.7.1",
-    "consola": "^2.15.3",
-    "keyv": "^4.5.2",
-    "nanoid": "^4.0.1",
-    "p-queue": "^7.3.4"
+  "simple-git-hooks": {
+    "pre-commit": "pnpm exec lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,ts,json,md,yaml,yml}": [
+      "eslint --fix"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "@antfu/eslint-config-ts"
   }
 }
