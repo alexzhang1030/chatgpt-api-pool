@@ -25,6 +25,7 @@
     "test": "vitest run",
     "lint": "eslint .",
     "prepare": "simple-git-hooks",
+    "prepublishOnly": "pnpm run build",
     "release": "bumpp --commit \"chore: release v%s\" --push --tag && pnpm publish",
     "build": "unbuild"
   },
