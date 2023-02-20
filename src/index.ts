@@ -31,7 +31,7 @@ export class RequestPool {
       this.pool.set(key, new Request(key))
   }
 
-  async sendMessage(message: string, options?: Options): Promise<ChatMessage> {
+  sendMessage = async (message: string, options?: Options): Promise<ChatMessage> => {
     const key = this.keys[Math.floor(Math.random() * this.keys.length)]
     const request = this.pool.get(key)
     let response: ChatMessage
