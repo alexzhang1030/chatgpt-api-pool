@@ -8,7 +8,9 @@ export default defineBuildConfig({
     esbuild: {
       target: 'es2019',
     },
+    inlineDependencies: true,
   },
   declaration: true,
+  externals: ['chatgpt', 'consola', 'keyv', 'nanoid'],
   clean: true,
 })
