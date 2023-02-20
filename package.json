@@ -3,10 +3,16 @@
   "version": "0.0.0",
   "description": "Build your own ChatGPT with a request pool.",
   "type": "module",
+  "files": [
+    "dist"
+  ],
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "test": "vitest run",
     "lint": "eslint .",
-    "prepare": "simple-git-hooks"
+    "prepare": "simple-git-hooks",
+    "build": "unbuild"
   },
   "keywords": [
     "chatgpt",
