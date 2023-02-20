@@ -2,7 +2,6 @@ import type { ChatMessage } from 'chatgpt'
 import { ChatGPTAPI } from 'chatgpt'
 import Keyv from 'keyv'
 import Queue from 'p-queue'
-import consola from 'consola'
 import type { ApiKey, Options } from './types'
 
 const messageStore = new Keyv()
@@ -50,7 +49,6 @@ export class Request {
             error: err,
           }, /* 30 mins */ 30 * 60 * 1000)
         }
-        consola.error(err)
         throw err
       }
     })
