@@ -12,6 +12,7 @@
     "test": "vitest run",
     "lint": "eslint .",
     "prepare": "simple-git-hooks",
+    "release": "bumpp --commit \"chore: release v%s\" --push --tag && pnpm publish",
     "build": "unbuild"
   },
   "keywords": [
