@@ -3,12 +3,13 @@ lockfileVersion: 5.4
 specifiers:
   '@antfu/eslint-config-ts': ^0.35.2
   '@types/node': ^18.14.0
+  '@types/nodemailer': ^6.4.7
   bumpp: ^8.2.1
   chatgpt: ^4.7.1
   consola: ^2.15.3
   eslint: ^8.34.0
   lint-staged: ^13.1.2
-  nanoid: ^4.0.1
+  nodemailer: ^6.9.1
   p-queue: ^7.3.4
   simple-git-hooks: ^2.8.1
   typescript: ^4.9.5
@@ -18,11 +19,12 @@ specifiers:
 dependencies:
   chatgpt: 4.7.1
   consola: 2.15.3
-  nanoid: 4.0.1
+  nodemailer: 6.9.1
 
 devDependencies:
   '@antfu/eslint-config-ts': 0.35.2_7kw3g6rralp5ps6mg3uyzz6azm
   '@types/node': 18.14.0
+  '@types/nodemailer': 6.4.7
   bumpp: 8.2.1
   eslint: 8.34.0
   lint-staged: 13.1.2
@@ -919,6 +921,12 @@ packages:
 
   /@types/node/18.14.0:
     resolution: {integrity: sha512-5EWrvLmglK+imbCJY0+INViFWUHg1AHel1sq4ZVSfdcNqGy9Edv3UB9IIzzg+xPaUcAgZYcfVs2fBcwDeZzU0A==}
+    dev: true
+
+  /@types/nodemailer/6.4.7:
+    resolution: {integrity: sha512-f5qCBGAn/f0qtRcd4SEn88c8Fp3Swct1731X4ryPKqS61/A3LmmzN8zaEz7hneJvpjFbUUgY7lru/B/7ODTazg==}
+    dependencies:
+      '@types/node': 18.14.0
     dev: true
 
   /@types/normalize-package-data/2.4.1:
@@ -3118,12 +3126,6 @@ packages:
     hasBin: true
     dev: true
 
-  /nanoid/4.0.1:
-    resolution: {integrity: sha512-udKGtCCUafD3nQtJg9wBhRP3KMbPglUsgV5JVsXhvyBs/oefqb4sqMEhKBBgqZncYowu58p1prsZQBYvAj/Gww==}
-    engines: {node: ^14 || ^16 || >=18}
-    hasBin: true
-    dev: false
-
   /natural-compare-lite/1.4.0:
     resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}
     dev: true
@@ -3135,6 +3137,11 @@ packages:
   /node-releases/2.0.10:
     resolution: {integrity: sha512-5GFldHPXVG/YZmFzJvKK2zDSzPKhEp0+ZR5SVaoSag9fsL5YgHbUHDfnG5494ISANDcK4KwPXAx2xqVEydmd7w==}
     dev: true
+
+  /nodemailer/6.9.1:
+    resolution: {integrity: sha512-qHw7dOiU5UKNnQpXktdgQ1d3OFgRAekuvbJLcdG5dnEo/GtcTHRYM7+UfJARdOFU9WUQO8OiIamgWPmiSFHYAA==}
+    engines: {node: '>=6.0.0'}
+    dev: false
 
   /normalize-package-data/2.5.0:
     resolution: {integrity: sha512-/5CMN3T0R4XTj4DcGaexo+roZSdSFW/0AOOTROrjxzCG1wrWXEsGbRKevjlIL+ZDE4sZlJr5ED4YW0yqmkK+eA==}

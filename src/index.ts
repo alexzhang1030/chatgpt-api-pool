@@ -1,7 +1,8 @@
 import type { ChatGPTError, ChatGPTErrorType, ChatMessage } from 'chatgpt'
 import consola from 'consola'
+import * as nodemailer from 'nodemailer'
 import { Request } from './request'
-import type { ApiKey, ErrorAction, Options, Response } from './types'
+import type { ApiKey, EmailConfig, ErrorAction, Options, Response } from './types'
 import { ErrorType } from './types'
 
 const handleError = (type: ChatGPTErrorType | /* 余额不足 */'insufficient_quota'): ErrorAction => {
@@ -24,11 +25,14 @@ const handleError = (type: ChatGPTErrorType | /* 余额不足 */'insufficient_qu
 
 export class RequestPool {
   private pool: Map<ApiKey, Request> = new Map()
+  private emailTransporter: nodemailer.Transporter | null = null
   // 余额不足的 key
   private nsf_keys: string[] = []
-  constructor(private keys: ApiKey[]) {
+  constructor(private keys: ApiKey[], private emailConfig?: EmailConfig) {
     for (const key of this.keys)
       this.pool.set(key, new Request(key))
+    if (emailConfig)
+      nodemailer.createTransport(emailConfig.serverConfig)
   }
 
   sendMessage = async (message: string, options?: Options): Promise<Response> => {
@@ -68,5 +72,19 @@ export class RequestPool {
     this.keys = this.keys.filter(k => k !== key)
     this.nsf_keys.push(key)
     this.pool.delete(key)
+    this.notifyNsfKeys(key)
+  }
+
+  notifyNsfKeys(key: string) {
+    if (!this.emailConfig)
+      return
+    if (!this.emailTransporter)
+      this.emailTransporter = nodemailer.createTransport(this.emailConfig.serverConfig)
+    this.emailTransporter.sendMail({
+      from: this.emailConfig.serverConfig.auth.user,
+      to: this.emailConfig.targetEmail,
+      subject: 'Open AI Key 余额不足',
+      text: `Key: ${key}`,
+    })
   }
 }
