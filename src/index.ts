@@ -88,3 +88,5 @@ export class RequestPool {
     })
   }
 }
+
+export type { EmailConfig, ErrorType, Response, Options } from './types'
