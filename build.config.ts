@@ -11,6 +11,6 @@ export default defineBuildConfig({
     inlineDependencies: true,
   },
   declaration: true,
-  externals: ['chatgpt', 'consola'],
+  externals: ['chatgpt', 'consola', 'nodemailer'],
   clean: true,
 })
