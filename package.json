@@ -32,7 +32,6 @@
   "dependencies": {
     "chatgpt": "^4.7.1",
     "consola": "^2.15.3",
-    "keyv": "^4.5.2",
     "nanoid": "^4.0.1"
   },
   "devDependencies": {

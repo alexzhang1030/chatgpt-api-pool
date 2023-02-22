@@ -2,7 +2,6 @@ import type { ChatGPTError, ChatGPTErrorType, ChatMessage } from 'chatgpt'
 import consola from 'consola'
 import { Request } from './request'
 import type { ApiKey, ErrorAction, Options } from './types'
-import { writeKeysInfo } from './helper'
 
 const handleError = (type: ChatGPTErrorType | /* 余额不足 */'insufficient_quota'): ErrorAction => {
   let action: ErrorAction
@@ -57,6 +56,5 @@ export class RequestPool {
     this.keys = this.keys.filter(k => k !== key)
     this.nsf_keys.push(key)
     this.pool.delete(key)
-    writeKeysInfo(this.nsf_keys, this.keys)
   }
 }

@@ -1,10 +1,7 @@
 import type { ChatMessage } from 'chatgpt'
 import { ChatGPTAPI } from 'chatgpt'
-import Keyv from 'keyv'
 import Queue from 'p-queue'
 import type { ApiKey, Options } from './types'
-
-const messageStore = new Keyv()
 
 export class Request {
   private api: ChatGPTAPI
@@ -25,35 +22,13 @@ export class Request {
     options: Options = {},
   ) {
     this.queueCount += 1
-    let endFlag = false
     let response: ChatMessage
     await this.queue.add(async () => {
-      try {
-        response = await this.api.sendMessage(message, {
-          ...options,
-          onProgress: options.messageId
-            ? async (partialResponse) => {
-              await messageStore.set(options.messageId!, {
-                ...partialResponse,
-                status: endFlag ? 'done' : 'pending',
-              }, /* 30 mins */ 30 * 60 * 1000)
-              options.onProgress ? options.onProgress(partialResponse) : (() => {})()
-            }
-            : undefined,
-        })
-      }
-      catch (err) {
-        if (options.messageId) {
-          await messageStore.set(options.messageId!, {
-            status: 'error',
-            error: err,
-          }, /* 30 mins */ 30 * 60 * 1000)
-        }
-        throw err
-      }
+      response = await this.api.sendMessage(message, {
+        ...options,
+      })
     })
     this.queueCount -= 1
-    endFlag = true
     return response!
   }
 
