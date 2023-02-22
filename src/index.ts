@@ -1,7 +1,8 @@
 import type { ChatGPTError, ChatGPTErrorType, ChatMessage } from 'chatgpt'
 import consola from 'consola'
 import { Request } from './request'
-import type { ApiKey, ErrorAction, Options } from './types'
+import type { ApiKey, ErrorAction, Options, Response } from './types'
+import { ErrorType } from './types'
 
 const handleError = (type: ChatGPTErrorType | /* 余额不足 */'insufficient_quota'): ErrorAction => {
   let action: ErrorAction
@@ -30,7 +31,14 @@ export class RequestPool {
       this.pool.set(key, new Request(key))
   }
 
-  sendMessage = async (message: string, options?: Options): Promise<ChatMessage> => {
+  sendMessage = async (message: string, options?: Options): Promise<Response> => {
+    if (!this.keys.length) {
+      return {
+        success: false,
+        response: null,
+        error: ErrorType.NO_VALID_KEYS,
+      }
+    }
     const key = this.keys[Math.floor(Math.random() * this.keys.length)]
     const request = this.pool.get(key)
     let response: ChatMessage
@@ -49,7 +57,11 @@ export class RequestPool {
         return await this.sendMessage(message, options)
       }
     }
-    return response!
+    return {
+      success: true,
+      response: response!,
+      error: null,
+    }
   }
 
   processNsfKey(key: string) {
