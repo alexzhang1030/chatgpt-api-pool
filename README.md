@@ -24,6 +24,15 @@ const requestPool = new RequestPool(API_KEYS, EMAIL_CONFIG)
 const response: {
   success: boolean
   message: ChatMessage /* from chat-gpt */
-  error: Enum
+  error: ErrorType
 } = await requestPool.sendMessage(q)
+```
+
+## ErrorType
+
+```ts
+enum ErrorType {
+  // 无可用 key
+  NO_VALID_KEYS = 'no_valid_keys',
+}
 ```
