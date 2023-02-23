@@ -5,6 +5,10 @@
   "description": "Build your own ChatGPT with a request pool.",
   "author": "alexzhang1030",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexzhang1030/chatgpt-api-pool.git"
+  },
   "keywords": [
     "chatgpt",
     "api",
