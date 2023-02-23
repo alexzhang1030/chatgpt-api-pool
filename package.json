@@ -1,7 +1,7 @@
 {
   "name": "chatgpt-api-pool",
   "type": "module",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Build your own ChatGPT with a request pool.",
   "author": "alexzhang1030",
   "license": "MIT",
