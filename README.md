@@ -23,7 +23,7 @@ const EMAIL_CONFIG = {
 const requestPool = new RequestPool(API_KEYS, EMAIL_CONFIG)
 const response: {
   success: boolean
-  message: ChatMessage /* from chat-gpt */
+  message: ChatMessage /* from chatgpt library */
   error: ErrorType
 } = await requestPool.sendMessage(q)
 ```
