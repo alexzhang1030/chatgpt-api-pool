@@ -2,12 +2,14 @@
 
 Build your own ChatGPT with a request pool.
 
+> NOTICE: due to `chatgpt` dependency does not support `CJS`, so this library does not work properly in `CJS` environment, use it on your own risk, recommend to use `ESM`.
+
 ## Usage
 
 ```ts
 const API_KEYS = ['...', '...']
 const EMAIL_CONFIG = {
-  // 这有一份关于 QQ 邮箱的说明：https://www.ujcms.com/documentation/351.html
+  // Here is a documentation about QQ email：https://www.ujcms.com/documentation/351.html
   serverConfig: {
     host: 'smtp.xx.com',
     port: 465,
@@ -19,20 +21,19 @@ const EMAIL_CONFIG = {
   },
   targetEmail: 'xxx@qq.com'
 }
-// EMAIL_CONFIG 非必填, 用于邮箱提醒余额不足的 key
+// EMAIL_CONFIG is optional, to provide email notification when key is exhausted
 const requestPool = new RequestPool(API_KEYS, EMAIL_CONFIG)
 const response: {
   success: boolean
   message: ChatMessage /* from chatgpt library */
   error: ErrorType
-} = await requestPool.sendMessage(q)
+} = await requestPool.sendMessage(q, options) // options, see https://github.com/transitive-bullshit/chatgpt-api/blob/main/src/types.ts#L5-L15
 ```
 
 ## ErrorType
 
 ```ts
 enum ErrorType {
-  // 无可用 key
   NO_VALID_KEYS = 'no_valid_keys',
 }
 ```

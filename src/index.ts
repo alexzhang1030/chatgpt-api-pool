@@ -5,7 +5,7 @@ import { Request } from './request'
 import type { ApiKey, EmailConfig, ErrorAction, Options, Response } from './types'
 import { ErrorType } from './types'
 
-const handleError = (type: ChatGPTErrorType | /* 余额不足 */'insufficient_quota'): ErrorAction => {
+const handleError = (type: ChatGPTErrorType | /* not sufficient funds */'insufficient_quota'): ErrorAction => {
   let action: ErrorAction
   switch (type) {
     case 'chatgpt:pool:rate-limit':
@@ -26,7 +26,6 @@ const handleError = (type: ChatGPTErrorType | /* 余额不足 */'insufficient_qu
 export class RequestPool {
   private pool: Map<ApiKey, Request> = new Map()
   private emailTransporter: nodemailer.Transporter | null = null
-  // 余额不足的 key
   private nsf_keys: string[] = []
   constructor(private keys: ApiKey[], private emailConfig?: EmailConfig) {
     for (const key of this.keys)
@@ -83,7 +82,7 @@ export class RequestPool {
     this.emailTransporter.sendMail({
       from: this.emailConfig.serverConfig.auth.user,
       to: this.emailConfig.targetEmail,
-      subject: 'Open AI Key 余额不足',
+      subject: 'OpenAI Key 余额不足',
       text: `Key: ${key}`,
     })
   }
