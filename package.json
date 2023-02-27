@@ -34,22 +34,22 @@
     "build": "unbuild"
   },
   "dependencies": {
-    "chatgpt": "^4.7.1",
+    "chatgpt": "^4.7.2",
     "consola": "^2.15.3",
     "nodemailer": "^6.9.1"
   },
   "devDependencies": {
-    "@antfu/eslint-config-ts": "^0.35.2",
-    "@types/node": "^18.14.0",
+    "@antfu/eslint-config-ts": "^0.35.3",
+    "@types/node": "^18.14.2",
     "@types/nodemailer": "^6.4.7",
     "bumpp": "^8.2.1",
-    "eslint": "^8.34.0",
+    "eslint": "^8.35.0",
     "lint-staged": "^13.1.2",
     "p-queue": "^7.3.4",
     "simple-git-hooks": "^2.8.1",
     "typescript": "^4.9.5",
     "unbuild": "^1.1.2",
-    "vitest": "^0.28.5"
+    "vitest": "^0.29.1"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm exec lint-staged"
