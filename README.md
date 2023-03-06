@@ -3,6 +3,8 @@
 Build your own ChatGPT with a request pool.
 
 > NOTICE: due to `chatgpt` dependency does not support `CJS`, so this library does not work properly in `CJS` environment, use it on your own risk, recommend to use `ESM`.
+> 
+> Use `gpt-3.5-turbo`
 
 ## Usage
 

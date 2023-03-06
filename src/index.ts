@@ -1,24 +1,18 @@
-import type { ChatGPTError, ChatGPTErrorType, ChatMessage } from 'chatgpt'
-import consola from 'consola'
+import type { ChatGPTError, ChatMessage } from 'chatgpt'
 import * as nodemailer from 'nodemailer'
+import consola from 'consola'
 import { Request } from './request'
 import type { ApiKey, EmailConfig, ErrorAction, Options, Response } from './types'
 import { ErrorType } from './types'
 
-const handleError = (type: ChatGPTErrorType | /* not sufficient funds */'insufficient_quota'): ErrorAction => {
+const handleError = (error: ChatGPTError): ErrorAction => {
   let action: ErrorAction
-  switch (type) {
-    case 'chatgpt:pool:rate-limit':
-    case 'chatgpt:pool:timeout':
-    case 'chatgpt:pool:unavailable':
-    case 'insufficient_quota':
+  switch (error.statusCode) {
+    case 429:
       action = 'next'
       break
-    case 'chatgpt:pool:account-not-found':
-    case 'chatgpt:pool:account-on-cooldown':
-    case 'chatgpt:pool:no-accounts':
     default:
-      action = 'next'
+      action = 'error'
   }
   return action
 }
@@ -51,9 +45,9 @@ export class RequestPool {
       response = await request.request(message, options)
     }
     catch (error) {
-      const action = handleError((error as ChatGPTError).type!)
+      const action = handleError((error as ChatGPTError))
       if (action === 'error') {
-        consola.error((error as ChatGPTError).message)
+        consola.error((error as { message: string }).message)
       }
       else {
         this.processNsfKey(key)
